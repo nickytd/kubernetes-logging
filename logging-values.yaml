@@ -1,3 +1,7 @@
+#the default storage class on minikube
+storage_class: "standard"
+
+
 # opensearch general configuration
 # Single type node deploys only one ALL type opensearch node
 # Otherwise it deploys coordination, data and master nodes
@@ -5,11 +9,12 @@
 opensearch:
   single_node: true
 
+
 # opensearch coordination node configuration
 client:
   ingress:
     enabled: true
-    host: os.local.dev
+    host: "os.local.dev"
     annotations:
       nginx.ingress.kubernetes.io/enable-access-log: "true"
       nginx.ingress.kubernetes.io/rewrite-target: "/"
@@ -20,33 +25,32 @@ client:
       #haproxy.org/ssl-redirect: "true" 
     tls:
       - hosts:
-          - os.local.dev
-        secretName: os-managed-tls  
+          - "os.local.dev"
+        secretName: os-tls  
              
 # Kibana configuration
 opensearch_dashboards:
   ingress:
     enabled: true 
-    host: opensearch.local.dev
+    host: "opensearch.local.dev"
     annotations:
       nginx.ingress.kubernetes.io/enable-access-log: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       cert-manager.io/cluster-issuer: ca-issuer
     tls:
       - hosts:
-          - opensearch.local.dev
-        secretName: opensearch-dashboards-managed-tls
+          - "opensearch.local.dev"
+        secretName: "opensearch-dashboards-tls"
   index_patterns:
-    - containers
-    - systemd
-    - nginx    
+    - "containers"
+    - "systemd"
+    - "nginx"    
 
 # Kafka should be enabled in scaled out configuration
 kafka:
   enabled: false
 
 fluentbit:
-  journal_host_path: /run/log
+  journal_host_path: "/run/log"
   metrics:
-    enabled: true
-    
+    enabled: true    
