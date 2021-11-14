@@ -8,7 +8,20 @@ storage_class: "standard"
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
   single_node: true
-
+  oidc: {}
+  #  enabled: true    
+  #  admin_role: administrator
+  #  viewer_role: viewer
+  #  developer_role: developer
+  #  client_id: opensearch
+  #  client_secret: opensearch
+  #  discovery_url: https://dex.local.dev/.well-known/openid-configuration
+  #  roles_key: groups
+  #  scope: openid groups email
+  #  subject_key: email
+  #  verify_hostnames: true    
+  #  cacerts: ""
+  #  logout_url: {}
 
 # opensearch coordination node configuration
 client:
