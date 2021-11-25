@@ -53,7 +53,10 @@ opensearch_dashboards:
   index_patterns:
     - "containers"
     - "systemd"
-    - "nginx"    
+    - "nginx"
+
+data_prepper:
+  enabled: false        
 
 # Kafka should be enabled in scaled out configuration
 kafka:
