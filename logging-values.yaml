@@ -64,7 +64,7 @@ kafka:
 
 fluentbit:
   containersLogsHostPath: /var/log/pods
-  journalsLogsHostPath: /var/log
+  journalsLogsHostPath: /run/log
   #define container runtime: docker or containerd
   containersRuntime: containerd
   metrics:
