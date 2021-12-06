@@ -56,13 +56,16 @@ opensearch_dashboards:
     - "nginx"
 
 data_prepper:
-  enabled: false        
+  enabled: true
 
 # Kafka should be enabled in scaled out configuration
 kafka:
   enabled: false
 
 fluentbit:
-  journal_host_path: /run/log
+  containersLogsHostPath: /var/log/pods
+  journalsLogsHostPath: /var/log
+  #define container runtime: docker or containerd
+  containersRuntime: containerd
   metrics:
     enabled: true    
