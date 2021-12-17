@@ -3,24 +3,37 @@
 # Otherwise it deploys coordination, data and master nodes
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
-  single_node: true
+  singleNode: false
   oidc:
     enabled: true    
-    admin_role: administrator
-    viewer_role: viewer
-    developer_role: developer
-    client_id: opensearch
-    client_secret: opensearch
-    discovery_url: https://dex.local.dev/.well-known/openid-configuration
-    roles_key: groups
+    adminRole: administrator
+    viewerRole: viewer
+    developerRole: developer
+    clientId: opensearch
+    clientSecret: opensearch
+    discoveryUrl: https://dex.local.dev/.well-known/openid-configuration
+    rolesKey: groups
     scope: openid groups email
-    subject_key: email
-    verify_hostnames: true    
+    subjectKey: email
+    verifyHostnames: true
     cacerts: ""
-    logout_url: {}
+    logoutUrl: {}
+
+data:
+  replicas: 1
+master:
+  replicas: 1
+kafka:
+  replicas: 1
+  enabled: true
+zookeeper:
+  replicas: 1
+fluentd:
+  replicas: 1
 
 # opensearch coordination node configuration
 client:
+  replicas: 1
   ingress:
     enabled: true
     host: "os.local.dev"
@@ -56,10 +69,6 @@ opensearch_dashboards:
     - "nginx"
 
 data_prepper:
-  enabled: true
-
-# Kafka should be enabled in scaled out configuration
-kafka:
   enabled: false
 
 fluentbit:
