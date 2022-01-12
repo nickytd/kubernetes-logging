@@ -3,7 +3,7 @@
 # Otherwise it deploys coordination, data and master nodes
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
-  singleNode: false
+  singleNode: true
   oidc:
     enabled: true    
     adminRole: administrator
@@ -28,7 +28,8 @@ kafka:
   enabled: true
 zookeeper:
   replicas: 1
-fluentd:
+logstash:
+  enabled: true
   replicas: 1
 
 # opensearch coordination node configuration
