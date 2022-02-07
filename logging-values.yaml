@@ -73,6 +73,8 @@ data_prepper:
   enabled: false
 
 fluentbit:
+  tolerations:
+    - operator: Exists
   containersLogsHostPath: /var/log/pods
   journalsLogsHostPath: /run/log
   #define container runtime: docker or containerd
