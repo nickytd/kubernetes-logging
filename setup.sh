@@ -8,16 +8,15 @@ source $dir/.includes.sh
 check_executables
 check_helm_chart "nickytd/kubernetes-logging"
 
+values="$dir/logging-values-extended.yaml"
+
 for var in "$@"; do
-if [[ "$var" = "--simple" ]]; then
-   values="$dir/logging-values-simple.yaml"
-else
-   values="$dir/logging-values-extended.yaml"
-fi
+  if [[ "$var" = "--simple" ]]; then
+    values="$dir/logging-values-simple.yaml"
+  fi
 done
 
 echo "setting up kubernetes logging stack with $values"
-
 kubectl create namespace logging \
   --dry-run=client -o yaml | kubectl apply -f -
 
