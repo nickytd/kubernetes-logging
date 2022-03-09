@@ -21,6 +21,13 @@ opensearch:
 
 data:
   replicas: 1
+  heapSize: "1G"
+  storage: "1Gi"
+  resources:
+    requests:
+      memory: "2000Mi"
+    limits:
+      memory: "2000Mi"
 master:
   replicas: 1
 kafka:
@@ -71,6 +78,9 @@ opensearch_dashboards:
 
 data_prepper:
   enabled: false
+
+fluentbitConfigWatcher:
+  imagePullPolicy: Always
 
 fluentbit:
   tolerations:

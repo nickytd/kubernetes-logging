@@ -21,6 +21,13 @@ opensearch:
 
 data:
   replicas: 1
+  heapSize: "1G"
+  storage: "5Gi"
+  resources:
+    requests:
+      memory: "2000Mi"
+    limits:
+      memory: "2000Mi"
 kafka:
   enabled: false
 
@@ -68,5 +75,10 @@ fluentbit:
   journalsLogsHostPath: /run/log
   #define container runtime: docker or containerd
   containersRuntime: containerd
+  resources:
+    requests:
+      memory: "50Mi"
+    limits:
+      memory: "200Mi"
   metrics:
     enabled: false
