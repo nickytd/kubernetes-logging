@@ -68,6 +68,10 @@ opensearch_dashboards:
     - "systemd"
     - "nginx"
 
+fluentbitConfigWatcher:
+  image: "nickytd/config-watcher"
+  imageTag: "latest"
+
 fluentbit:
   tolerations:
     - operator: Exists

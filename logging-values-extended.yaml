@@ -80,7 +80,8 @@ data_prepper:
   enabled: false
 
 fluentbitConfigWatcher:
-  imagePullPolicy: Always
+  image: "nickytd/config-watcher"
+  imageTag: "latest"
 
 fluentbit:
   tolerations:
