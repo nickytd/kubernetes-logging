@@ -86,3 +86,6 @@ fluentbit:
       memory: "200Mi"
   metrics:
     enabled: false
+
+data_prepper:
+  enabled: true

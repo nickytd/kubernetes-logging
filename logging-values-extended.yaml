@@ -30,14 +30,21 @@ data:
       memory: "2000Mi"
 master:
   replicas: 1
+
 kafka:
   replicas: 1
   enabled: true
+
 zookeeper:
   replicas: 1
+
 logstash:
-  enabled: true
   replicas: 1
+  enabled: true
+  monitoring:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 
 # opensearch coordination node configuration
 client:
@@ -77,7 +84,7 @@ opensearch_dashboards:
     - "nginx"
 
 data_prepper:
-  enabled: false
+  enabled: true
 
 fluentbitConfigWatcher:
   image: "nickytd/config-watcher"
