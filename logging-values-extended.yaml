@@ -3,7 +3,10 @@
 # Otherwise it deploys coordination, data and master nodes
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
-  singleNode: true
+  certManager:
+    enabled: true
+    namespace: cert-manager
+  singleNode: false
   oidc:
     enabled: true    
     adminRole: administrator

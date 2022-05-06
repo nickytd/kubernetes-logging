@@ -4,6 +4,9 @@
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
   singleNode: true
+  certManager:
+    enabled: true
+    namespace: cert-manager
   oidc:
     enabled: true    
     adminRole: administrator
@@ -28,6 +31,7 @@ data:
       memory: "2000Mi"
     limits:
       memory: "2000Mi"
+
 kafka:
   enabled: false
 
@@ -88,4 +92,4 @@ fluentbit:
     enabled: false
 
 data_prepper:
-  enabled: true
+  enabled: false
