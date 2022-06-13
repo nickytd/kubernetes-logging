@@ -3,10 +3,10 @@
 # Otherwise it deploys coordination, data and master nodes
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
-  singleNode: true
   certManager:
     enabled: true
     namespace: cert-manager
+  singleNode: false
   oidc:
     enabled: true    
     adminRole: administrator
@@ -23,21 +23,35 @@ opensearch:
     logoutUrl: {}
 
 data:
-  replicas: 1
+  replicas: 2
   heapSize: "1G"
-  storage: "5Gi"
+  storage: "1Gi"
   resources:
     requests:
       memory: "2000Mi"
     limits:
       memory: "2000Mi"
+master:
+  replicas: 2
 
 kafka:
-  enabled: false
+  replicas: 2
+  enabled: true
+
+zookeeper:
+  replicas: 2
+
+logstash:
+  replicas: 2
+  enabled: true
+  monitoring:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 
 # opensearch coordination node configuration
 client:
-  replicas: 1
+  replicas: 2
   ingress:
     enabled: true
     host: "os.local.dev"
@@ -72,6 +86,9 @@ opensearch_dashboards:
     - "systemd"
     - "nginx"
 
+data_prepper:
+  enabled: true
+
 fluentbitConfigWatcher:
   image: "nickytd/config-watcher"
   imageTag: "latest"
@@ -83,13 +100,5 @@ fluentbit:
   journalsLogsHostPath: /run/log
   #define container runtime: docker or containerd
   containersRuntime: containerd
-  resources:
-    requests:
-      memory: "50Mi"
-    limits:
-      memory: "200Mi"
   metrics:
-    enabled: false
-
-data_prepper:
-  enabled: true
+    enabled: true    

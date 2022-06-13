@@ -8,11 +8,15 @@ source $dir/.includes.sh
 check_executables
 check_helm_chart "nickytd/kubernetes-logging"
 
-values="$dir/logging-values-extended.yaml"
+values="$dir/logging-values-simple.yaml"
 
 for var in "$@"; do
   if [[ "$var" = "--simple" ]]; then
     values="$dir/logging-values-simple.yaml"
+  fi
+
+  if [[ "$var" = "--extended" ]]; then
+    values="$dir/logging-values-extended.yaml"
   fi
 done
 
