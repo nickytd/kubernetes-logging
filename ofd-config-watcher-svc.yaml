@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ofd-config-watcher
+  name: ofd-config-watcher
+  namespace: logging
+spec:
+  ports:
+  - name: metrics
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    k8s-app: fluentbit
+  type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: ofd-config-watcher
+  name: ofd-config-watcher
+  namespace: logging
+spec:
+  endpoints:
+  - honorLabels: true
+    path: /metrics
+    port: metrics
+    scheme: http
+    scrapeTimeout: 30s
+  jobLabel: ofd-config-watcher
+  namespaceSelector:
+    matchNames:
+    - logging
+  selector:
+    matchLabels:
+      app: ofd-config-watcher

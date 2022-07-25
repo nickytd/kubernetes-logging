@@ -8,16 +8,21 @@ source $dir/.includes.sh
 check_executables
 check_helm_chart "nickytd/kubernetes-logging"
 
-values="$dir/logging-values-simple.yaml"
+values="$dir/ofd-simple-values.yaml"
 
 for var in "$@"; do
   if [[ "$var" = "--simple" ]]; then
-    values="$dir/logging-values-simple.yaml"
+    values="$dir/ofd-simple-values.yaml"
   fi
 
   if [[ "$var" = "--extended" ]]; then
-    values="$dir/logging-values-extended.yaml"
+    values="$dir/ofd-extended-values.yaml"
   fi
+
+  if [[ "$var" = "--ha-extended" ]]; then
+    values="$dir/ofd-ha-extended-values.yaml"
+  fi
+
 done
 
 echo "setting up kubernetes logging stack with $values"
@@ -38,3 +43,15 @@ helm upgrade ofd nickytd/kubernetes-logging \
   --install --timeout 15m
 
 fi
+
+
+for var in "$@"; do
+  if [[ "$var" = "--exporter" ]]; then
+    echo " installing elasticsearch exporter"
+
+      helm upgrade exporter \
+        -n logging -f "$dir/elasticsearch-exporter.yaml" \
+        prometheus-community/prometheus-elasticsearch-exporter \
+        --install
+  fi
+done  

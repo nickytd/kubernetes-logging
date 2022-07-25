@@ -1,0 +1,65 @@
+opensearch:
+  user: "osadmin"
+  password: "pass1234"
+  singleNode: true
+  certManager:
+    enabled: true
+    namespace: cert-manager
+  oidc:
+    enabled: false
+  saml:
+    enabled: false
+
+data:
+  replicas: 1
+  heapSize: "512m"
+  storage: "5Gi"
+  resources:
+    requests:
+      memory: "1200Mi"
+    limits:
+      memory: "1200Mi"
+
+# opensearch coordination node configuration
+client:
+  replicas: 1
+  ingress:
+    enabled: true
+    host: "os-only.local.dev"
+    annotations:
+      nginx.ingress.kubernetes.io/enable-access-log: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: "/"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 8m
+      cert-manager.io/cluster-issuer: ca-issuer      
+    tls:
+      - hosts:
+          - "os-only.local.dev"
+        secretName: os-tls  
+             
+# Kibana configuration
+opensearch_dashboards:
+  user: "opensearch"
+  password: "pass1234"
+  ingress:
+    enabled: true 
+    host: "opensearch-only.local.dev"
+    annotations:
+      nginx.ingress.kubernetes.io/enable-access-log: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: ca-issuer
+    tls:
+      - hosts:
+          - "opensearch-only.local.dev"
+        secretName: "opensearch-dashboards-tls"
+    indexPatterns: []
+
+fluentbit:
+  enabled: false
+
+kafka:
+  enabled: false
+
+data_prepper:
+  enabled: false

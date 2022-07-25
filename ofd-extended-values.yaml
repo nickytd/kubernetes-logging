@@ -66,7 +66,7 @@ client:
     tls:
       - hosts:
           - "os.local.dev"
-        secretName: os-tls  
+        secretName: os-tls
              
 # Kibana configuration
 opensearch_dashboards:

@@ -1,0 +1,49 @@
+opensearch:
+  user: osadmin
+  password: pass1234
+  externalOpensearch:
+    disabled: false
+    url: "https://os-only.local.dev"
+    caCertificateSecret: os-only-certificate
+opensearch_dashboards:
+  username: opensearch
+  password:  pass1234
+  externalOpensearchDashboards:
+    disabled: false
+    url: "https://opensearch-only.local.dev"                  
+    runJob: true
+    caCertificateSecret: opensearch-only-certificate
+  indexPatterns:
+    - only-fb-containers
+    - only-fb-systemd
+  tenants:
+    - Global
+
+fluentbitConfigWatcher:
+  image: "nickytd/config-watcher"
+  imageTag: "0.2.2"
+
+fluentbit:
+  tolerations:
+    - operator: Exists
+  containersLogsHostPath: /var/log/pods
+  journalsLogsHostPath: /run/log
+  #define container runtime: docker or containerd
+  containersRuntime: containerd
+  caCertificateSecret: os-only-certificate
+  indexPrefix: only-fb
+  readFromHead: true
+  priorityClass: system-node-critical
+  resources:
+    requests:
+      memory: "50Mi"
+    limits:
+      memory: "200Mi"
+  metrics:
+    enabled: false
+
+data_prepper:
+  enabled: false
+
+kafka:
+  enabled: false

@@ -24,13 +24,13 @@ opensearch:
 
 data:
   replicas: 1
-  heapSize: "1G"
+  heapSize: "512m"
   storage: "5Gi"
   resources:
     requests:
-      memory: "2000Mi"
+      memory: "1000Mi"
     limits:
-      memory: "2000Mi"
+      memory: "1000Mi"
 
 kafka:
   enabled: false
@@ -46,6 +46,7 @@ client:
       nginx.ingress.kubernetes.io/rewrite-target: "/"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      # nginx.ingress.kubernetes.io/proxy-body-size: 2m
       cert-manager.io/cluster-issuer: ca-issuer
       #haproxy.org/server-ssl: "true"
       #haproxy.org/ssl-redirect: "true" 
@@ -92,4 +93,4 @@ fluentbit:
     enabled: false
 
 data_prepper:
-  enabled: true
+  enabled: false
