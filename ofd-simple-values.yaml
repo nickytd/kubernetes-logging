@@ -3,12 +3,13 @@
 # Otherwise it deploys coordination, data and master nodes
 # The recommended configuration in scaled out setups is to disable single_node and enable kafka
 opensearch:
+  # image: "nickytd/opensearch-with-exporter"
   singleNode: true
   certManager:
     enabled: true
     namespace: cert-manager
   oidc:
-    enabled: true    
+    enabled: true
     adminRole: administrator
     viewerRole: viewer
     developerRole: developer
@@ -49,16 +50,16 @@ client:
       # nginx.ingress.kubernetes.io/proxy-body-size: 2m
       cert-manager.io/cluster-issuer: ca-issuer
       #haproxy.org/server-ssl: "true"
-      #haproxy.org/ssl-redirect: "true" 
+      #haproxy.org/ssl-redirect: "true"
     tls:
       - hosts:
           - "os.local.dev"
-        secretName: os-tls  
-             
+        secretName: os-tls
+
 # Kibana configuration
 opensearch_dashboards:
   ingress:
-    enabled: true 
+    enabled: true
     host: "opensearch.local.dev"
     annotations:
       nginx.ingress.kubernetes.io/enable-access-log: "true"
