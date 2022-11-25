@@ -8,6 +8,18 @@ source $dir/.includes.sh
 check_executables
 check_helm_chart "nickytd/kubernetes-logging"
 
+if [[ "$1" == "-h" ]]; then
+   echo "## installs kubernetes logging stack ##"
+   echo "   supported options:"
+   echo "     --simple"
+   echo "         provisions single node opensearch cluster"
+   echo "     --extended"
+   echo "         provisions coordination, cluster_manager and data opensearch nodes"
+   echo "     --ha-extended"
+   echo "         adds kafka message brokers to the extended case"
+   exit
+fi
+
 values="$dir/ofd-simple-values.yaml"
 
 for var in "$@"; do
@@ -44,7 +56,6 @@ helm upgrade ofd nickytd/kubernetes-logging \
 
 fi
 
-
 for var in "$@"; do
   if [[ "$var" = "--exporter" ]]; then
     echo " installing elasticsearch exporter"
@@ -54,4 +65,4 @@ for var in "$@"; do
         prometheus-community/prometheus-elasticsearch-exporter \
         --install
   fi
-done  
+done
